@@ -1,0 +1,108 @@
+<html>
+<head>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div id="div1">
+
+</div>
+<script type="text/babel">
+function Pa({props}){
+  return(<h1>{props}</h1>);
+}
+
+function App(){
+  const mystyle={color:'red',fontSize:100}
+  const [text,setText] = React.useState(1); 
+  const [num, setNum] = React.useState({color:'red',name:'beng',cost:100000})
+	  	  const li=['red','blue','green','yellow','black','white']
+  function pe(){
+    setTimeout( ()=>{
+      setNum(prev => {
+        return{...prev, color: li[Math.floor(Math.random() * li.length)]}
+      });
+    }, 20); 
+  }
+
+  function per(){
+    setInterval(() => {
+      setNum(prev => {
+        return{...prev, cost: prev.cost + 1}
+      });
+    }, 1000); 
+  }
+  function rep(){
+  const lis=['geng','bmw','rollsroyals','tatamotors']
+      setNum(prev => {
+        return{...prev, name:lis[Math.floor(Math.random() * lis.length)]}
+      }); 
+  }
+  return (
+    <React.Fragment> 
+      <h1> hi iam harish</h1>
+      <button onClick={() => setText(text + 1)}>
+        Clicks: {text}
+      </button>
+      
+      <h1 style={mystyle}>{num.color}</h1> 
+      <h1>{num.name}</h1>
+      <h1>{num.cost}</h1>
+      <Pa props={"welcome"}/>
+      
+      <button onClick={pe}>Set Color to Black in 5s</button>
+      <button onClick={per}>Start Cost Ticker</button>
+	        <button onClick={rep}>Start name</button>
+    </React.Fragment>
+  );
+}
+
+function DataFetch(){ 
+  const [post, setPost] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/posts/1')
+      .then(res => res.json())
+      .then(data => setPost(data)) 
+      .catch(error => console.error("Fetch error:", error));
+  }, []);
+
+  return (
+    <div>
+      <h2>Fetched Data Title:</h2>
+        {post&&<h3 key={post.id}>{post.title}</h3>} 
+    </div>
+  );
+}
+function Formevent(){
+const [sate,set]=React.useState("")
+const handle=e=>{
+e.preventDefault();
+alert(`submit${sate}`)
+}
+return(<form onSubmit={handle}>
+<input value={sate} onChange={e=>set(e.target.value)}/>
+<button type='submit'>submit</button>
+</form>);
+}
+function Dis(){
+const li=['apple','bana','cherry','kivi']
+return(
+<ul>
+{li.map((s,index)=><li key={index}>{s}</li>)}
+</ul>)
+}
+const { createRoot } = ReactDOM
+const root = createRoot(document.getElementById('div1'))
+root.render(
+  <>
+    <App />
+    <DataFetch/> 
+	  <Formevent/>
+	  <Dis/>
+  </>
+)
+</script>
+</body>
+</html>
